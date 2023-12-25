@@ -63,4 +63,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaction::class);
     }
+
+    /**
+     * A collection of gift codes this user used
+     *
+     * @return HasMany
+     */
+    public function giftCodeUsages(): HasMany
+    {
+        return $this->hasMany(GiftCodeUsage::class);
+    }
 }
