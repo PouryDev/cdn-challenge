@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gift_codes', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('code');
             $table->integer('max_usage')->nullable();
             $table->integer('used_count')->default(0);
