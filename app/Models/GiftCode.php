@@ -20,4 +20,14 @@ class GiftCode extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    /**
+     * A collection of the usages of this gift code
+     *
+     * @return HasMany
+     */
+    public function giftCodeUsages(): HasMany
+    {
+        return $this->hasMany(GiftCodeUsage::class);
+    }
 }
