@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Wallet extends Model
 {
     protected $guarded = [];
+    public $incrementing = false;
 }
