@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('gift_codes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('code');
+            $table->string('code')->unique();
             $table->integer('max_usage')->nullable();
             $table->integer('used_count')->default(0);
             $table->timestamps();
