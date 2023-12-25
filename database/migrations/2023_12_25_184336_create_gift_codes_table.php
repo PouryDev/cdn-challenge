@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('max_usage')->nullable();
             $table->integer('used_count')->default(0);
             $table->decimal('amount', 12);
+            $table->dateTime('expire_at')->nullable();
             $table->timestamps();
         });
     }
