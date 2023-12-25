@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->integer('max_usage')->nullable();
             $table->integer('used_count')->default(0);
+            $table->decimal('amount', 12);
             $table->timestamps();
         });
     }
