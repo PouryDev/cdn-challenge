@@ -30,4 +30,14 @@ class Wallet extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    /**
+     * A collection of gift codes charged this wallet
+     *
+     * @return HasMany
+     */
+    public function giftCodeUsages(): HasMany
+    {
+        return $this->hasMany(GiftCodeUsage::class);
+    }
 }
