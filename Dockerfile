@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     libxml2-dev \
     libonig-dev \
-    libzip-dev
+    libzip-dev \
+    iputils-ping
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
