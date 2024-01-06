@@ -13,6 +13,10 @@ class GiftCode extends Model
     protected $guarded = [];
     public $incrementing = false;
 
+    protected $casts = [
+        'expire_at' => 'datetime',
+    ];
+
 
     /**
      * All transactions created by this gift code
