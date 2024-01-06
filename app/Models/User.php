@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\WalletService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -18,7 +19,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ['phone_number'];
+    protected $fillable = ['phone_number', 'email'];
+
+    protected static function booted(): void
+    {
+        parent::booted();
+        static::created(function (User $user) {
+            WalletService::create($user->id);
+        });
+    }
 
     /**
      * This user's wallet
