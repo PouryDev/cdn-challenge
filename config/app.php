@@ -186,4 +186,6 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'solution' => env('APP_SOLUTION', 'db'),
+
 ];

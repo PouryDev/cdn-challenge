@@ -54,7 +54,7 @@ class GiftCodeService
             return false;
         }
 
-        if ($code->expire_at->isPast()) {
+        if ($code->expire_at?->isPast()) {
             return false;
         }
 
@@ -73,12 +73,12 @@ class GiftCodeService
      *
      * @param GiftCode $code
      * @param User $user
-     * @return bool
+     * @return null|int
      */
-    public static function use(GiftCode $code, User $user): bool
+    public static function use(GiftCode $code, User $user): ?int
     {
         try {
-            $code->increment('used_count');
+            $usedCount = $code->increment('used_count');
 
             $usage = GiftCodeUsage::create([
                 'id' => Uuid::uuid4()->toString(),
@@ -88,12 +88,12 @@ class GiftCodeService
             ]);
 
             if (empty($usage)) {
-                return false;
+                return null;
             }
-            return true;
+            return $usedCount;
         } catch (Exception $e) {
             Log::error($e);
-            return false;
+            return null;
         }
     }
 }

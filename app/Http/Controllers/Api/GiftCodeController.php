@@ -7,6 +7,7 @@ use App\Http\Requests\GiftCodeRequest;
 use App\Jobs\UseGiftCodeJob;
 use App\Models\GiftCode;
 use App\Models\User;
+use App\Services\UseGiftCode;
 use Illuminate\Http\JsonResponse;
 
 class GiftCodeController extends Controller
@@ -32,7 +33,12 @@ class GiftCodeController extends Controller
 
         $code = GiftCode::where('code', $data['code'])->first();
 
-        dispatch(new UseGiftCodeJob($code, $user));
-        return response()->json(['message' => 'You can see the result in your mail']);
+        if (config('app.solution') === 'rabbit') {
+            dispatch(new UseGiftCodeJob($code, $user));
+            return response()->json(['message' => 'You can see the result in your mail']);
+        } else {
+            return UseGiftCode::handle($code, $user);
+        }
+
     }
 }
