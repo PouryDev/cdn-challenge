@@ -44,13 +44,17 @@ class GiftCodeService
      * @param string $userID
      * @return bool
      */
-    public static function isValid(string|GiftCode $code, string $userID): bool
+    public static function isValid(string|GiftCode $code, int $userID): bool
     {
         if (is_string($code)) {
             $code = GiftCode::find($code);
         }
 
         if ($code->used_count >= $code->max_usage) {
+            return false;
+        }
+
+        if ($code->expire_at->isPast()) {
             return false;
         }
 
@@ -73,11 +77,8 @@ class GiftCodeService
      */
     public static function use(GiftCode $code, User $user): bool
     {
-        $code->used_count += 1;
         try {
-            if (!$code->save()) {
-                return false;
-            }
+            $code->increment('used_count');
 
             $usage = GiftCodeUsage::create([
                 'id' => Uuid::uuid4()->toString(),
